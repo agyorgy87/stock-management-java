@@ -1,12 +1,12 @@
-public class Product {
+public abstract class Product {
 
     private static int nextId = 1;
 
-    private String name;
+    protected String name;
 
-    private int quantity;
+    protected int quantity;
 
-    private int id;
+    protected int id;
 
     public Product(String name, int quantity) {
         this.name = name;
@@ -39,6 +39,7 @@ public class Product {
         }
     }
 
+    //abstract problem
     public void display() {
         System.out.println("id: " + id + ", product name: " + name + ", quantity: " + quantity);
     }
