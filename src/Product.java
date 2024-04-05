@@ -1,11 +1,18 @@
 public class Product {
 
+    private static int nextId = 1;
+
     private String name;
+
     private int quantity;
+
+    private int id;
 
     public Product(String name, int quantity) {
         this.name = name;
         this.quantity  = quantity;
+        this.id = nextId;
+        nextId++;
     }
 
     public void addStock(int addQuantity) {
@@ -33,7 +40,7 @@ public class Product {
     }
 
     public void display() {
-        System.out.println("product name: " + name + ", quantity: " + quantity);
+        System.out.println("id: " + id + ", product name: " + name + ", quantity: " + quantity);
     }
 
 }
