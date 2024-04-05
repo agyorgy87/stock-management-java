@@ -5,6 +5,7 @@ public class Shop {
 
     private List<Product> productsRepository;
 
+    ArrayList<Product> listToStoring = new ArrayList<>();
     public Shop() {
         this.productsRepository = new ArrayList<>();
     }
@@ -63,7 +64,47 @@ public class Shop {
         if(!found) {
             throw new NameNotFoundException("No such product in stock.");
         }
+    }
 
+    //products above stock level
+    public void findProductsAboveStockLevel(int quantity) {
+        int productCounter = 0;
+        for(Product product : productsRepository) {
+            if(product.quantity > quantity) {
+                listToStoring.add(product);
+                productCounter++;
+            }
+        }
+        if(listToStoring.isEmpty()){
+            System.out.println("No such product in stock.");
+        }else {
+            System.out.println("all products above stock level: " + productCounter);
+            for(Product product : listToStoring){
+                System.out.println("Name: " + product.name + ", quantity: " + product.quantity);
+            }
+        }
+    }
+
+    //electronic products above stock level
+    public void findElectronicProductsAboveWarrianty(int warranty) {
+        int productCounter = 0;
+        for(Product product : productsRepository) {
+            if(product instanceof ElectronicProduct) {
+                ElectronicProduct electronicProduct = (ElectronicProduct) product;
+                    if(electronicProduct.warranty > warranty) {
+                        listToStoring.add(electronicProduct);
+                        productCounter++;
+                    }
+            }
+        }
+        if(listToStoring.isEmpty()) {
+            System.out.println("No such product in stock.");
+        }else{
+            System.out.println("all electronic products above stock level: " + productCounter);
+            for(Product product : listToStoring) {
+                System.out.println("Name: " + product.name + ", quantity: " + product.quantity);
+            }
+        }
     }
 
     public void display() {

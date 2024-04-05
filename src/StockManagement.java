@@ -18,12 +18,17 @@ public class StockManagement {
         //shop.countFoodProduct();
         //shop.countElectronicProduct();
         //shop.avgProductStock();
-
+        /*
         try {
             shop.findProductByName("trappist");
         } catch(NameNotFoundException e) {
             System.out.println(e.getMessage());
         }
+        */
+
+        //shop.findProductsAboveStockLevel(21);
+        //shop.findElectronicProductsAboveWarrianty(2);
+
 
         //shop.display();
 
