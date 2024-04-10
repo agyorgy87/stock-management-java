@@ -5,106 +5,129 @@ public class Shop {
 
     private List<Product> productsRepository;
 
-    ArrayList<Product> listToStoring = new ArrayList<>();
     public Shop() {
         this.productsRepository = new ArrayList<>();
     }
 
     public void addProduct(Product product) {
         productsRepository.add(product);
-        System.out.println("Product added to the shop.");
     }
 
     //count all food product
-    public void countFoodProduct() {
+    public int countFoodProduct() {
         int foodProductQuantity = 0;
         for(Product foodProduct : productsRepository) {
             if(foodProduct instanceof FoodProduct) {
                 foodProductQuantity++;
             }
         }
-        System.out.println("Number of food products: " + foodProductQuantity);
+        return foodProductQuantity;
     }
 
     //count all electronic product
-    public void countElectronicProduct() {
+    public int countElectronicProduct() {
         int electronicProductQuantity = 0;
         for(Product electronicProduct : productsRepository) {
             if(electronicProduct instanceof ElectronicProduct) {
                 electronicProductQuantity++;
             }
         }
-        System.out.println("Number of electronic products: " + electronicProductQuantity);
+        return electronicProductQuantity;
     }
 
     //average quantity of all products
-    public void avgProductStock() {
+    public double avgProductStock() {
         double averageStock = 0.0;
-        int totalQuantityOfStock = 0;
+        double totalQuantityOfStock = 0.0;
         int numberOfProducts = 0;
         for(Product product : productsRepository) {
             totalQuantityOfStock += product.quantity;
             numberOfProducts++;
         }
-        averageStock = (double) totalQuantityOfStock / numberOfProducts;
-        System.out.println(averageStock);
+        averageStock = totalQuantityOfStock / numberOfProducts;
+        return averageStock;
     }
 
     //find product by name
-    public void findProductByName(String name) throws NameNotFoundException {
+    public Product findProductByName(String name) throws NameNotFoundException {
         String lowerCaseName = name.toLowerCase();
-        boolean found = false;
         for(Product product : productsRepository) {
             String productNameLowerCase = product.name.toLowerCase();
             if(productNameLowerCase.equals(lowerCaseName)) {
-                System.out.println("Result: " + product.name + ", Quantity: " + product.quantity);
-                found = true;
+                return product;
             }
         }
-        if(!found) {
-            throw new NameNotFoundException("No such product in stock.");
-        }
+        throw new NameNotFoundException("No such product in stock.");
     }
 
     //products above stock level
-    public void findProductsAboveStockLevel(int quantity) {
-        int productCounter = 0;
+    public ArrayList<Product> findProductsAboveStockLevel(int quantity) {
+        ArrayList<Product> listToStoring = new ArrayList<>();
         for(Product product : productsRepository) {
             if(product.quantity > quantity) {
                 listToStoring.add(product);
-                productCounter++;
             }
         }
-        if(listToStoring.isEmpty()){
-            System.out.println("No such product in stock.");
-        }else {
-            System.out.println("all products above stock level: " + productCounter);
-            for(Product product : listToStoring){
-                System.out.println("Name: " + product.name + ", quantity: " + product.quantity);
-            }
-        }
+        return listToStoring;
     }
 
     //electronic products above stock level
-    public void findElectronicProductsAboveWarrianty(int warranty) {
-        int productCounter = 0;
+    public ArrayList<Product> findElectronicProductsAboveWarrianty(int warranty) {
+        ArrayList<Product> listToStoring = new ArrayList<>();
         for(Product product : productsRepository) {
             if(product instanceof ElectronicProduct) {
                 ElectronicProduct electronicProduct = (ElectronicProduct) product;
                     if(electronicProduct.warranty > warranty) {
                         listToStoring.add(electronicProduct);
-                        productCounter++;
                     }
             }
         }
-        if(listToStoring.isEmpty()) {
-            System.out.println("No such product in stock.");
-        }else{
-            System.out.println("all electronic products above stock level: " + productCounter);
-            for(Product product : listToStoring) {
-                System.out.println("Name: " + product.name + ", quantity: " + product.quantity);
+        return listToStoring;
+    }
+
+    //average electronic product
+    public double avgElectronicProductQuantity() {
+        double averageStock = 0.0;
+        double totalQuantityOfStock = 0;
+        int numberOfProducts = 0;
+        for(Product product : productsRepository) {
+            if(product instanceof ElectronicProduct) {
+                ElectronicProduct electronicProduct = (ElectronicProduct) product;
+                totalQuantityOfStock += electronicProduct.quantity;
+                numberOfProducts++;
             }
         }
+        averageStock = totalQuantityOfStock / numberOfProducts;
+        return averageStock;
+    }
+
+    //all electronic product
+    public ArrayList<Product> findAllElectronicProduct() {
+        ArrayList<Product> listToStoring = new ArrayList<>();
+        for(Product product : productsRepository) {
+            if(product instanceof ElectronicProduct) {
+                ElectronicProduct electronicProduct = (ElectronicProduct) product;
+                listToStoring.add(electronicProduct);
+            }
+        }
+        return listToStoring;
+    }
+
+    //find minimum quantity all product
+    public ArrayList<Product> minQuantityProduct() {
+        ArrayList<Product> listToStoring = new ArrayList<>();
+        int minQuantity = Integer.MAX_VALUE;
+        for(Product product : productsRepository) {
+            if(product.quantity < minQuantity) {
+                minQuantity = product.quantity;
+            }
+        }
+        for(Product product : productsRepository) {
+            if(product.quantity == minQuantity) {
+                listToStoring.add(product);
+            }
+        }
+        return listToStoring;
     }
 
     public void display() {

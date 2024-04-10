@@ -1,19 +1,23 @@
+import java.time.LocalDate;
+
 public class StockManagement {
     public static void main(String[] args) {
 
         Shop shop = new Shop();
 
-        FoodProduct milk = new FoodProduct("milk", 10, "2024.07.05");
-        FoodProduct cheese = new FoodProduct("Trappist", 5, "2024.08.09");
-        FoodProduct bread = new FoodProduct("White Bread", 20, "2024.06.18");
+        FoodProduct milk = new FoodProduct("milk", 3, LocalDate.of(2024,7,5));
+        FoodProduct cheese = new FoodProduct("Trappist", 5, LocalDate.of(2024,8,9));
+        FoodProduct bread = new FoodProduct("White Bread", 20, LocalDate.of(2024,6,18));
         shop.addProduct(milk);
         shop.addProduct(cheese);
         shop.addProduct(bread);
 
-        ElectronicProduct asusLaptop = new ElectronicProduct("Asus TUF 505DT", 3, 2);
+        ElectronicProduct asusLaptop = new ElectronicProduct("Asus TUF 505DT", 9, 2);
         ElectronicProduct samsungTv = new ElectronicProduct("Samsung 4K QLED", 5, 3);
+        ElectronicProduct lgTv = new ElectronicProduct("LG 4K OLED", 15, 2);
         shop.addProduct(asusLaptop);
         shop.addProduct(samsungTv);
+        shop.addProduct((lgTv));
 
         //shop.countFoodProduct();
         //shop.countElectronicProduct();
@@ -24,11 +28,21 @@ public class StockManagement {
         } catch(NameNotFoundException e) {
             System.out.println(e.getMessage());
         }
+
+        try {
+            shop.findProductByName("trappist");
+            all call what i can put here
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
         */
 
         //shop.findProductsAboveStockLevel(21);
-        //shop.findElectronicProductsAboveWarrianty(2);
+        //shop.findElectronicProductsAboveWarrianty(1);
+        //shop.avgElectronicProductQuantity();
+        //shop.findAllElectronicProduct();
 
+        //shop.minQuantityProduct();
 
         //shop.display();
 

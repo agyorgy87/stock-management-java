@@ -4,11 +4,11 @@ import java.time.format.DateTimeFormatter;
 public class FoodProduct extends Product {
 
     private LocalDate expiryDate;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
-    public FoodProduct(String name, int quantity, String expiryDate) {
+    public FoodProduct(String name, int quantity, LocalDate expiryDate) {
         super(name, quantity);
-        this.expiryDate = LocalDate.parse(expiryDate, formatter);
+        this.expiryDate = expiryDate;
     }
 
     @Override
