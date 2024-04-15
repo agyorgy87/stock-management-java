@@ -14,35 +14,44 @@ public class Shop {
     }
 
     //count all food product
-    public int countFoodProduct() {
+    public int countFoodProduct() throws EmptyListException {
         int foodProductQuantity = 0;
         for(Product foodProduct : productsRepository) {
             if(foodProduct instanceof FoodProduct) {
                 foodProductQuantity++;
             }
         }
+        if(foodProductQuantity == 0) {
+            throw new EmptyListException("The Food product list is empty.");
+        }
         return foodProductQuantity;
     }
 
     //count all electronic product
-    public int countElectronicProduct() {
+    public int countElectronicProduct() throws EmptyListException {
         int electronicProductQuantity = 0;
         for(Product electronicProduct : productsRepository) {
             if(electronicProduct instanceof ElectronicProduct) {
                 electronicProductQuantity++;
             }
         }
+        if(electronicProductQuantity == 0) {
+            throw new EmptyListException("The Electronic product list is empty.");
+        }
         return electronicProductQuantity;
     }
 
     //average quantity of all products
-    public double avgProductStock() {
+    public double avgProductStock() throws EmptyListException {
         double averageStock = 0.0;
         double totalQuantityOfStock = 0.0;
         int numberOfProducts = 0;
         for(Product product : productsRepository) {
             totalQuantityOfStock += product.quantity;
             numberOfProducts++;
+        }
+        if(numberOfProducts == 0) {
+            throw new EmptyListException("The Product list is empty.");
         }
         averageStock = totalQuantityOfStock / numberOfProducts;
         return averageStock;
@@ -61,18 +70,21 @@ public class Shop {
     }
 
     //products above stock level
-    public ArrayList<Product> findProductsAboveStockLevel(int quantity) {
+    public ArrayList<Product> findProductsAboveStockLevel(int quantity) throws EmptyListException {
         ArrayList<Product> listToStoring = new ArrayList<>();
         for(Product product : productsRepository) {
             if(product.quantity > quantity) {
                 listToStoring.add(product);
             }
         }
+        if(listToStoring.isEmpty()) {
+            throw new EmptyListException("The Product list is empty.");
+        }
         return listToStoring;
     }
 
     //electronic products above stock level
-    public ArrayList<Product> findElectronicProductsAboveWarrianty(int warranty) {
+    public ArrayList<Product> findElectronicProductsAboveWarrianty(int warranty) throws EmptyListException{
         ArrayList<Product> listToStoring = new ArrayList<>();
         for(Product product : productsRepository) {
             if(product instanceof ElectronicProduct) {
@@ -82,11 +94,14 @@ public class Shop {
                     }
             }
         }
+        if(listToStoring.isEmpty()) {
+            throw new EmptyListException("The Product list is empty.");
+        }
         return listToStoring;
     }
 
     //average electronic product
-    public double avgElectronicProductQuantity() {
+    public double avgElectronicProductQuantity() throws EmptyListException{
         double averageStock = 0.0;
         double totalQuantityOfStock = 0;
         int numberOfProducts = 0;
@@ -97,12 +112,15 @@ public class Shop {
                 numberOfProducts++;
             }
         }
+        if(numberOfProducts == 0) {
+            throw new EmptyListException("The Product list is empty.");
+        }
         averageStock = totalQuantityOfStock / numberOfProducts;
         return averageStock;
     }
 
     //all electronic product
-    public ArrayList<Product> findAllElectronicProduct() {
+    public ArrayList<Product> findAllElectronicProduct() throws EmptyListException{
         ArrayList<Product> listToStoring = new ArrayList<>();
         for(Product product : productsRepository) {
             if(product instanceof ElectronicProduct) {
@@ -110,11 +128,14 @@ public class Shop {
                 listToStoring.add(electronicProduct);
             }
         }
+        if(listToStoring.isEmpty()) {
+            throw new EmptyListException("The Product list is empty.");
+        }
         return listToStoring;
     }
 
     //find minimum quantity all product
-    public ArrayList<Product> minQuantityProduct() {
+    public ArrayList<Product> minQuantityProduct() throws EmptyListException{
         ArrayList<Product> listToStoring = new ArrayList<>();
         int minQuantity = Integer.MAX_VALUE;
         for(Product product : productsRepository) {
@@ -126,6 +147,9 @@ public class Shop {
             if(product.quantity == minQuantity) {
                 listToStoring.add(product);
             }
+        }
+        if(listToStoring.isEmpty()) {
+            throw new EmptyListException("The Product list is empty.");
         }
         return listToStoring;
     }
